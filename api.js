@@ -5,6 +5,8 @@ const signUp = require('./user_module/sign_up');
 const login = require('./user_module/login');
 const dashboard = require('./dashboard/dashboard');
 const productDetail = require('./product_module/product_detail');
+const category = require('./product_module/getDataFromCategory');
+const categoryName = require('./product_module/getCategoryName');
 // const mysql = require('mysql');
 // const bodyParser = require('body-parser');
 
@@ -23,6 +25,8 @@ app.use('/api/signUp', signUp);
 app.use('/api/login', login);
 app.use('/api/dashboard', dashboard);
 app.use('/api/productDetail', productDetail);
+app.use('/api/getCategoryData', category);
+app.use('/api/getCategoryName', categoryName);
 
 
 
