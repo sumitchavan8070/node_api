@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 
             // Check if user with the given email exists
             if (results.length === 0) {
-                return res.json({
+                return res.status(200).json({
                     status: 0,
                     response: 'User not found.'
                 });
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
 
             // Compare the provided password with the password retrieved from the database
             if (user.password !== password) {
-                return res.status(401).json({
+                return res.status(200).json({
                     status: 0,
                     response: 'Incorrect password.'
                 });

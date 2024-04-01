@@ -2,20 +2,26 @@ const express = require('express');
 const router = express.Router();
 const connection = require('../db'); // Import the database connection
 
+// Middleware to parse JSON-encoded request bodies
+router.use(express.json());
+
 router.post('/', (req, res) => {
     try {
-        // Retrieve the brand from the POST parameters
-        const { brand } = req.body; // Destructure brand directly from req.body
-        console.log("Brand:", brand);
-        if (!brand) {
+        // Log the request body parameters
+        console.log("Request Body:", req.body);
+
+        // Retrieve the ID from the POST parameters
+        const { id } = req.body; // Destructure ID directly from req.body
+        console.log("ID:", id);
+        if (!id) {
             return res.status(400).json({ 
                 status: 0,
-                response: 'Invalid request. Brand parameter is missing in the POST body.'
+                response: 'Invalid request. ID parameter is missing in the POST body.'
             });
         }
 
-        const query = 'SELECT * FROM furniture WHERE brand = ?';
-        const values = [brand]; // Placeholders for prepared statement
+        const query = 'SELECT brand, subcategory, name, price, mrp, discount, image FROM furniture WHERE id = ?';
+        const values = [id]; // Placeholders for prepared statement
 
         connection.query(query, values, (err, results) => { // Pass values to query
             if (err) {
@@ -29,7 +35,7 @@ router.post('/', (req, res) => {
             if (results.length === 0) {
                 return res.status(404).json({
                     status: 0,
-                    response: 'No data found for the specified brand.'
+                    response: 'No data found for the specified ID.'
                 });
             }
 
@@ -37,7 +43,7 @@ router.post('/', (req, res) => {
             res.json({
                 status: 1,
                 response: 'Data fetched successfully.',
-                result: results // Return all matching rows
+                result: results[0] // Return the first matching row
             });
         });
     } catch (error) {
@@ -50,4 +56,3 @@ router.post('/', (req, res) => {
 });
 
 module.exports = router;
-    
