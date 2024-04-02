@@ -38,11 +38,14 @@ router.post('/', (req, res) => {
                 });
             }
 
-            
+            const groupedResults = [];
+            for (let i = 0; i < results.length; i += 2) {
+                groupedResults.push(results.slice(i, i + 2));
+            }
             res.json({
                 status: 1,
                 response: 'Data fetched successfully.',
-                result: results 
+                result: groupedResults 
             });
         });
     } catch (error) {
