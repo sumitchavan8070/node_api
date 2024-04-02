@@ -7,6 +7,7 @@ const dashboard = require('./dashboard/dashboard');
 const productDetail = require('./product_module/product_detail');
 const category = require('./product_module/getDataFromCategory');
 const categoryName = require('./product_module/getCategoryName');
+const getOtp = require('./user_module/getOtp');
 // const mysql = require('mysql');
 // const bodyParser = require('body-parser');
 
@@ -27,6 +28,7 @@ app.use('/api/dashboard', dashboard);
 app.use('/api/productDetail', productDetail);
 app.use('/api/getCategoryData', category);
 app.use('/api/getCategoryName', categoryName);
+app.use('/api/getOtp', getOtp);
 
 
 
