@@ -5,9 +5,9 @@ const nodemailer = require('nodemailer');
 
 router.use(express.json());
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        const { email } = req.body; // Get email from request body
+        const { email } = req.body;
 
         if (!email) {
             return res.status(400).json({ 
@@ -21,8 +21,8 @@ router.post('/', (req, res) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'sdchavan8070@gmail.com',
-                pass: 'sum@8070'
+                user: 'sdchavan8070@gmail.com', // your gmail address
+                pass: 'Sumit@8070' // your gmail password or app-specific password
             }
         });
 
@@ -33,26 +33,19 @@ router.post('/', (req, res) => {
             text: `Your OTP is: ${otp}`
         };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error('Error sending email:', error);
-                return res.status(500).json({
-                    status: 0,
-                    response: 'Failed to send OTP'
-                });
-            } else {
-                console.log('Email sent: ' + info.response);
-                res.json({
-                    status: 1,
-                    response: 'OTP sent successfully.'
-                });
-            }
+        // Send email
+        const info = await transporter.sendMail(mailOptions);
+
+        console.log('Email sent: ' + info.response);
+        res.json({
+            status: 1,
+            response: 'OTP sent successfully.'
         });
     } catch (error) {
-        console.error('Error generating OTP:', error);
+        console.error('Error sending email:', error);
         res.status(500).json({ 
             status: 0,
-            response: 'Internal server error'
+            response: 'Failed to send OTP'
         });
     }
 });

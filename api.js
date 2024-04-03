@@ -8,6 +8,8 @@ const productDetail = require('./product_module/product_detail');
 const category = require('./product_module/getDataFromCategory');
 const categoryName = require('./product_module/getCategoryName');
 const getOtp = require('./user_module/getOtp');
+const addToCart = require('./product_module/add_to_cart');
+const myOrders = require('./product_module/my_orders');
 // const mysql = require('mysql');
 // const bodyParser = require('body-parser');
 
@@ -29,6 +31,8 @@ app.use('/api/productDetail', productDetail);
 app.use('/api/getCategoryData', category);
 app.use('/api/getCategoryName', categoryName);
 app.use('/api/getOtp', getOtp);
+app.use('/api/addToCart', addToCart);
+app.use('/api/myOrders', myOrders);
 
 
 

@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
             });
         }
 
-        const query = 'SELECT brand, subcategory, name, price, mrp, discount, image FROM furniture WHERE id = ?';
+        const query = 'SELECT id, brand, subcategory, name, price, mrp, discount, image FROM furniture WHERE id = ?';
         const values = [id]; // Placeholders for prepared statement
 
         connection.query(query, values, (err, results) => { // Pass values to query
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
                 });
             }
 
-            // Send response with fetched data
+            // Send response with fetched data including product ID
             res.json({
                 status: 1,
                 response: 'Data fetched successfully.',
