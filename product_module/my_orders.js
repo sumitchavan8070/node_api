@@ -36,8 +36,22 @@ router.post('/', (req, res) => {
             // Extract existing orders array or initialize an empty array if it doesn't exist
             const existingOrders = fetchResults[0].orders ? JSON.parse(fetchResults[0].orders) : [];
 
+            if (existingOrders.length === 0) {
+                // If no orders found, return empty products array
+                return res.status(200).json({
+                    status: 1,
+                    response: 'No products found for the user.',
+                    orders: existingOrders, // user's orders
+                    products: [] // empty products array
+                });
+            }
+
             // Fetch details of products from the furniture table based on product IDs in the orders array
-            const fetchProductQuery = `SELECT * FROM furniture WHERE id IN (?)`;
+            const fetchProductQuery = `SELECT id, subcategory, name, brand, 
+                CAST(REPLACE(REPLACE(price, '₹', ''), ',', '') AS DECIMAL(10,2)) AS price, 
+                CAST(REPLACE(REPLACE(mrp, '₹', ''), ',', '') AS DECIMAL(10,2)) AS mrp, 
+                discount, image 
+                FROM furniture WHERE id IN (?)`;
             connection.query(fetchProductQuery, [existingOrders], (productFetchErr, productFetchResults) => {
                 if (productFetchErr) {
                     console.error('Error fetching product data:', productFetchErr.message);
@@ -46,6 +60,12 @@ router.post('/', (req, res) => {
                         response: 'Internal server error'
                     });
                 }
+
+                // Convert price and MRP to numeric values
+                productFetchResults.forEach(product => {
+                    product.price = parseFloat(product.price);
+                    product.mrp = parseFloat(product.mrp);
+                });
 
                 // Return the user's orders along with product details
                 return res.status(200).json({
