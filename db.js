@@ -1,7 +1,6 @@
-// In a separate file, e.g., db.js
 const mysql = require('mysql');
 
-// Create connection pool
+// db connection pool
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',

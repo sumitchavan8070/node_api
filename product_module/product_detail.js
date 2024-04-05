@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../db'); // Import the database connection
+const connection = require('../db'); 
 
-// Middleware to parse JSON-encoded request bodies
 router.use(express.json());
 
 router.post('/', (req, res) => {
     try {
-        // Log the request body parameters
+
         console.log("Request Body:", req.body);
 
-        // Retrieve the ID from the POST parameters
-        const { id } = req.body; // Destructure ID directly from req.body
+        const { id } = req.body; 
+
         console.log("ID:", id);
         if (!id) {
             return res.status(400).json({ 
@@ -21,9 +20,9 @@ router.post('/', (req, res) => {
         }
 
         const query = 'SELECT id, brand, subcategory, name, price, mrp, discount, image FROM furniture WHERE id = ?';
-        const values = [id]; // Placeholders for prepared statement
+        const values = [id]; 
 
-        connection.query(query, values, (err, results) => { // Pass values to query
+        connection.query(query, values, (err, results) => {
             if (err) {
                 console.error('Error executing query:', err.message);
                 return res.status(500).json({ 
@@ -39,11 +38,11 @@ router.post('/', (req, res) => {
                 });
             }
 
-            // Send response with fetched data including product ID
+
             res.json({
                 "status": 1,
                 "response": "Data fetched successfully.",
-                "result": results[0] // Return the first matching row
+                "result": results[0] 
             });
         });
     } catch (error) {

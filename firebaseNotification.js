@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
-const sendPushNotification = require('./path/to/sendPushNotification'); // Import the sendPushNotification function
+const sendPushNotification = require('./path/to/sendPushNotification'); 
 
-// Initialize Firebase Admin SDK with your service account credentials and FCM server key
 const serviceAccount = require('./path/to/your/serviceAccountKey.json');
 const fcmServerKey = 'your_fcm_server_key_here';
 
@@ -12,15 +11,12 @@ admin.initializeApp({
     apiKey: fcmServerKey
 });
 
-// Middleware to parse JSON-encoded request bodies
 router.use(express.json());
 
-// POST endpoint for sending FCM notifications
 router.post('/', async (req, res) => {
     try {
         const { id, topic, token, title, body, data } = req.body;
 
-        // Check if ID is provided
         if (!id) {
             return res.status(400).json({ 
                 status: 0,
@@ -28,7 +24,6 @@ router.post('/', async (req, res) => {
             });
         }
 
-        // Prepare the FCM message
         const message = {
             notification: {
                 title: title || 'New Furniture Item Added',
@@ -39,7 +34,6 @@ router.post('/', async (req, res) => {
             token: token
         };
 
-        // Send FCM notification using sendPushNotification function
         try {
             await sendPushNotification({ to: token, title, body, data });
             console.log('Successfully sent FCM message');

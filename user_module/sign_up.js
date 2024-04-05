@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const uuid = require('uuid'); // Import uuid library for generating tokens
+const uuid = require('uuid'); 
 const connection = require('../db');
 
 router.use(bodyParser.json());
@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
     try {
         const { username, email, password, phoneNumber } = req.body;
 
-        // Check if any required field is missing
+
         if (!username || !email || !password || !phoneNumber) {
             return res.status(400).json({
                 status: 0,
@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
             });
         }
 
-        // Check if the email already exists in the database
+
         const emailCheckQuery = 'SELECT * FROM users WHERE email = ?';
         connection.query(emailCheckQuery, [email], (err, results) => {
             if (err) {
@@ -30,17 +30,16 @@ router.post('/', (req, res) => {
             }
 
             if (results.length > 0) {
-                // Email already exists, return message
+
                 return res.json({
                     status : 0, 
                     response: 'User already exists with this email.'
                 });
             }
 
-            // Generate a token for the user
-            const token = uuid.v4(); // Generate a random UUID
+            const token = uuid.v4(); 
 
-            // Insert user into the database
+
             const insertQuery = 'INSERT INTO users (username, email, password, phoneNumber, token) VALUES (?, ?, ?, ?, ?)';
             const insertValues = [username, email, password, phoneNumber, token];
             connection.query(insertQuery, insertValues, (err) => {
@@ -54,7 +53,7 @@ router.post('/', (req, res) => {
                 res.status(201).json({
                     status: 1,
                     response: 'User created successfully.',
-                    token: token // Return the token in the response
+                    token: token 
                 });
             });
         });

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../db'); // Import the database connection
+const connection = require('../db'); 
 
 router.use(express.json());
 
@@ -15,7 +15,6 @@ router.post('/', (req, res) => {
             });
         }
 
-        // Fetch the current user data from the database
         const fetchQuery = 'SELECT * FROM users WHERE id = ?';
         connection.query(fetchQuery, userId, (fetchErr, fetchResults) => {
             if (fetchErr) {
@@ -33,21 +32,16 @@ router.post('/', (req, res) => {
                 });
             }
 
-            // Extract existing orders array or initialize an empty array if it doesn't exist
             let existingOrders = fetchResults[0].orders ? JSON.parse(fetchResults[0].orders) : [];
 
-            // If existingOrders is not an array, create a new array and add the existing value if it exists
             if (!Array.isArray(existingOrders)) {
                 existingOrders = existingOrders ? [existingOrders] : [];
             }
 
-            // Add the new productId to the orders array
             existingOrders.push(productId);
 
-            // Convert the orders array back to JSON string before updating the database
             const updatedOrders = JSON.stringify(existingOrders);
 
-            // Update the user's orders array in the database
             const updateQuery = 'UPDATE users SET orders = ? WHERE id = ?';
             connection.query(updateQuery, [updatedOrders, userId], (updateErr, updateResults) => {
                 if (updateErr) {

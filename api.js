@@ -11,8 +11,6 @@ const getOtp = require('./user_module/getOtp');
 const addToCart = require('./product_module/add_to_cart');
 const myOrders = require('./product_module/my_orders');
 const removeFromMyCart = require('./product_module/remove_from_my_cart');
-// const mysql = require('mysql');
-// const bodyParser = require('body-parser');
 
 
 
@@ -23,7 +21,7 @@ const app = express();
 
 
 
-// Define API endpoints
+//  API endpoints
 app.use('/api/getSofasData', getSofasData);
 app.use('/api/signUp', signUp);
 app.use('/api/login', login);
@@ -41,9 +39,9 @@ app.use('/api/removeFromMyCart', removeFromMyCart);
 const PORT = process.env.PORT || 3000;
 
 
-// app.get('/', (req, res) => {
-//     res.send('api is connected');
-// });
+app.get('/', (req, res) => {
+    res.send('server is connected');
+});
 
 
 app.listen(PORT, () => {

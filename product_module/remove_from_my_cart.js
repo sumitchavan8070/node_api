@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../db'); // Import the database connection
+const connection = require('../db'); 
 
 router.use(express.json());
 
@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
             });
         }
 
-        // Fetch the current user's orders from the database
+        
         const fetchQuery = 'SELECT orders FROM users WHERE id = ?';
         connection.query(fetchQuery, userId, (fetchErr, fetchResults) => {
             if (fetchErr) {
@@ -33,23 +33,23 @@ router.post('/', (req, res) => {
                 });
             }
 
-            // Extract existing orders array or initialize an empty array if it doesn't exist
             const existingOrders = fetchResults[0].orders ? JSON.parse(fetchResults[0].orders) : [];
 
-            // Check if the product ID exists in the user's orders
+
+
             const productIndex = existingOrders.indexOf(productId);
             if (productIndex === -1) {
-                // Product ID doesn't exist in the user's orders
+
                 return res.status(404).json({
                     status: 0,
                     response: 'Product ID does not exist in user orders.'
                 });
             }
 
-            // Remove the product ID from the user's orders
+
             existingOrders.splice(productIndex, 1);
 
-            // Update the orders column in the user table with the modified orders array
+
             const updateQuery = 'UPDATE users SET orders = ? WHERE id = ?';
             connection.query(updateQuery, [JSON.stringify(existingOrders), userId], (updateErr) => {
                 if (updateErr) {
@@ -60,7 +60,6 @@ router.post('/', (req, res) => {
                     });
                 }
 
-                // Return success response
                 return res.status(200).json({
                     status: 1,
                     response: 'Product removed from user orders successfully.',
