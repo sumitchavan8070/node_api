@@ -16,18 +16,25 @@ router.post('/', async (req, res) => {
             });
         }
 
-        const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+        // Generate OTP as a string
+        const otpString = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+
+        // Convert OTP string to integer
+        const otp = parseInt(otpString);
+
+        let account = await nodemailer.createTestAccount();
 
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: 'smtp.ethereal.email',
+            port: 587,
             auth: {
-                user: 'sdchavan8070@gmail.com', 
-                pass: 'Sumit@8070' 
+                user: account.user, // Use test account username
+                pass: account.pass  // Use test account password
             }
         });
 
         const mailOptions = {
-            from: 'sdchavan8070@gmail.com',
+            from: '"Sender Name" <ardella.metz@ethereal.email>', // Use a valid Ethereal email address
             to: email,
             subject: 'Your OTP for Verification',
             text: `Your OTP is: ${otp}`
@@ -36,6 +43,7 @@ router.post('/', async (req, res) => {
         const info = await transporter.sendMail(mailOptions);
 
         console.log('Email sent: ' + info.response);
+        console.log('Preview URL: ' + nodemailer.getTestMessageUrl(info)); // Get Ethereal preview URL
         res.json({
             status: 1,
             response: 'OTP sent successfully.'
