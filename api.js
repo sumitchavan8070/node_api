@@ -12,6 +12,7 @@ const addToCart = require('./product_module/add_to_cart');
 const myOrders = require('./product_module/my_orders');
 const sendOtpViaFirebase = require('./user_module/send_otp_firebase');
 const removeFromMyCart = require('./product_module/remove_from_my_cart');
+const resetPassword = require('./user_module/reset_password_api');
 
 
 
@@ -35,6 +36,7 @@ app.use('/api/addToCart', addToCart);
 app.use('/api/myOrders', myOrders);
 app.use('/api/removeFromMyCart', removeFromMyCart);
 app.use('/api/sendOtpViaFirebase', sendOtpViaFirebase);
+app.use('/api/resetPassword', resetPassword);
 
 
 
