@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
     const activityData = [
      
      
-[
     {
       "activityType": "REACTION",
       "type": "CLAPPING",
@@ -56,7 +55,6 @@ router.get('/', (req, res) => {
       "contentTitle": "Tailwind CSS Best Practices",
       "contentType": "POST"
     }
-  ]
     ];
 
     // Return the specific data
