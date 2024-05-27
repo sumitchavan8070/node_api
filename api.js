@@ -57,15 +57,18 @@ const PORT = process.env.PORT || 5000;
 // }
 
 
+// CORS middleware
 app.use((req, res, next) => {
-  // Allow requests from any origin
+  console.log('Request received with method:', req.method);
+  console.log('Request received with headers:', req.headers);
+
   res.setHeader('Access-Control-Allow-Origin', '*');
-  // Set allowed methods
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  // Set allowed headers
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  // Allow credentials
   res.setHeader('Access-Control-Allow-Credentials', true);
+
+  console.log('Response headers being sent:', res.getHeaders());
+
   next();
 });
 
