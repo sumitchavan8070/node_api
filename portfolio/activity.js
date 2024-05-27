@@ -56,7 +56,7 @@ router.get('/', (req, res) => {
 ]
 
 
-    res.send.json({
+    res.status(200).json({
       status: 1,
       response: 'data feteched  successfully.',
       data : activityData   
