@@ -13,6 +13,9 @@ const myOrders = require('./product_module/my_orders');
 const sendOtpViaFirebase = require('./user_module/send_otp_firebase');
 const removeFromMyCart = require('./product_module/remove_from_my_cart');
 const resetPassword = require('./user_module/reset_password_api');
+const getGistData = require('./user_module/getDataFromGist');
+const checkApp = require('./services/checkApp');
+const activity = require('./portfolio/activity');
 
 
 
@@ -35,15 +38,28 @@ app.use('/api/getOtp', getOtp);
 app.use('/api/addToCart', addToCart);
 app.use('/api/myOrders', myOrders);
 app.use('/api/removeFromMyCart', removeFromMyCart);
-app.use('/api/sendOtpViaFirebase', sendOtpViaFirebase);
+// app.use('/api/sendOtpViaFirebase', sendOtpViaFirebase);
 app.use('/api/resetPassword', resetPassword);
+app.use('/api/getGistData', getGistData);
+app.use('/api/checkApp', checkApp);
+
+// portfilio api`s 
+app.use('/api/activity', activity);
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 
-app.get('/', (req, res) => {
+
+// function myMiddleware(req, res, next) {
+//   next(); 
+// }
+
+// app.use(myMiddleware);
+
+
+app.get('/', (req, res) => {  
     res.send('server is connected');
 });
 

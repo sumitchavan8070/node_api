@@ -16,11 +16,10 @@ router.post('/', async (req, res) => {
             });
         }
 
-        // Generate OTP as a string
-        const otpString = otpGenerator.generate(6, { upperCase: false, specialChars: false });
+        // Generate numeric OTP as a string
+        const otpString = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
 
-        // Convert OTP string to integer
-        const otp = parseInt(otpString);
+        // No need to convert the OTP string to an integer
 
         let account = await nodemailer.createTestAccount();
 
@@ -37,7 +36,7 @@ router.post('/', async (req, res) => {
             from: '"Sender Name" <ardella.metz@ethereal.email>', // Use a valid Ethereal email address
             to: email,
             subject: 'Your OTP for Verification',
-            text: `Your OTP is: ${otp}`
+            text: `Your OTP is: ${otpString}`
         };
 
         const info = await transporter.sendMail(mailOptions);

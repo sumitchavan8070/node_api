@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const connection = require('../db');
 
 router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
+
 
 router.post('/', (req, res) => {
     try {
