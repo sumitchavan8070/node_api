@@ -6,6 +6,7 @@ const connection = require('../db');
 router.get('/', (req, res) => {
     console.log("Received GET request");
 
+
     // Your specific data
     const activityData = [
      
