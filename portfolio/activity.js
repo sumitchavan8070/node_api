@@ -16,18 +16,22 @@ router.get('/', (req, res) => {
       "type": "CLAPPING",
       "count": 2,
       "createdAt": "2024-05-27T03:36:18.679Z",
-      "slug": "id-tailwindcss-best-practices",
-      "contentTitle": "Tailwind CSS Best Practices",
-      "contentType": "POST"
+      "slug": "Flutter Project",
+      "contentTitle": "Animated Drawer",
+      "contentType": "POST", 
+      "redirectUrl": "https://github.com/sumitchavan8070/drawer_flutter"
     },
+
     {
       "activityType": "REACTION",
       "type": "CLAPPING",
       "count": 1,
       "createdAt": "2024-05-27T03:36:18.064Z",
-      "slug": "id-tailwindcss-best-practices",
-      "contentTitle": "Tailwind CSS Best Practices",
-      "contentType": "POST"
+      "slug": "Node  Project",
+      "contentTitle": "Car-Bikes",
+      "contentType": "POST",
+      "redirectUrl": "https://github.com/sumitchavan8070/node_api"
+
     },
     {
       "activityType": "REACTION",
@@ -36,7 +40,9 @@ router.get('/', (req, res) => {
       "createdAt": "2024-05-27T03:36:17.192Z",
       "slug": "id-tailwindcss-best-practices",
       "contentTitle": "Tailwind CSS Best Practices",
-      "contentType": "POST"
+      "contentType": "POST",
+      "redirectUrl": "https://github.com/sumitchavan8070/drawer_flutter"
+
     },
     {
       "activityType": "REACTION",
@@ -45,7 +51,11 @@ router.get('/', (req, res) => {
       "createdAt": "2024-05-27T03:36:16.570Z",
       "slug": "id-tailwindcss-best-practices",
       "contentTitle": "Tailwind CSS Best Practices",
-      "contentType": "POST"
+      "contentType": "POST",
+      "redirectUrl": "https://github.com/sumitchavan8070/drawer_flutter"
+
+      
+
     },
     {
       "activityType": "REACTION",
@@ -54,7 +64,9 @@ router.get('/', (req, res) => {
       "createdAt": "2024-05-27T03:36:14.411Z",
       "slug": "id-tailwindcss-best-practices",
       "contentTitle": "Tailwind CSS Best Practices",
-      "contentType": "POST"
+      "contentType": "POST",
+      "redirectUrl": "https://github.com/sumitchavan8070/drawer_flutter"
+
     }
     ];
 
